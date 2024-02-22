@@ -1,28 +1,30 @@
 from random import randint as ri
-from utils import valid_input
+from utils import valid_input, intro
 from os import system
 from time import sleep
 
-intro_ment = """안녕하세요. 업그레이드 버전의 업다운 게임입니다.
-랜덤한 숫자를 맞춰주시면 됩니다 ~
+input_time = 5
+intro_ment = f"""안녕하세요. 업그레이드 버전의 업다운 게임입니다.
+랜덤한 숫자를 추측해서 맞춰주시면 됩니다 ~
+
+메뉴선택 및 계속하기 입력을 제외한 숫자 입력은 {input_time} 초 안으로 하셔야 합니다!
+{input_time} 초가 지나면 자동으로 카운트 됩니다.
+
+또한, 유효한 범위의 숫자가 입력되지 않을 경우 패널티가 적용 됩니다.
+ex) 5 에서 down 이 나왔는데 5 이상의 수를 입력한 경우
+
 종료를 원한다면 언제든 q 를 입력해주세요.
 게임을 시작해볼까요?"""
-
-for st in intro_ment:
-    print(st, end="")
-    sleep(0.01)
-
-input("\n\n게임시작 [ENTER]")
-system("clear")
+intro(intro_ment, 0.01, [4,5,7])
 
 
 while True:
     system("clear")
-    level_ment = """==============================
+    level_ment = """=================================================
 1. EASY (한 자리수)
 2. NORMAL (두 자리수)
 3. HARD (세 자리수)
-==============================
+=================================================
 난이도를 선택해주세요 > """
     level = valid_input(level_ment, ["1","2","3"], str)
     level = int(level)
@@ -42,7 +44,7 @@ while True:
 
     while True:
         # 사용자가 3 초안에 입력하지 않을 경우 TimeoutOccurred Error 가 발생
-        user_input = valid_input('숫자를 맞춰보세요 > ',range(boundary_min, boundary_max + 1), int, 10)
+        user_input = valid_input('숫자를 맞춰보세요 > ',range(boundary_min, boundary_max + 1), int, input_time)
         
         if user_input:
             try_time += 1
@@ -68,12 +70,15 @@ while True:
         else:
             print("시도회수가 1 증가합니다 ~")
             try_time += 1
+            sleep(1.5)
+            system("clear")
+            continue
 
         input("\n\nTry Again [ENTER]")
         system("clear")
     
     system("clear")
-    retry_input = valid_input('게임을 다시 시작하시겠습니까 y/n > ', ['y','n'], str)
+    retry_input = valid_input('게임을 다시 시작하시겠습니까 y/n > ', ['y','n'], str).lower()
     if retry_input == 'n':
         break
 
