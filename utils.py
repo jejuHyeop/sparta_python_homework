@@ -1,4 +1,25 @@
 from inputimeout import inputimeout, TimeoutOccurred
+from time import sleep
+from os import system
+from colorama import Fore, Style
+import colorama
+
+colorama.init()
+def intro(st, time, line=[]):
+    system("clear")
+    cnt = 1
+    for ch in st:
+        if line:
+            if ch == "\n":
+                cnt += 1
+            if cnt in line:
+                print(Fore.RED, end="")
+            else:
+                print(Style.RESET_ALL, end="")
+        print(ch, end="")
+        sleep(time)
+    input("\n\n게임시작 [ENTER]")
+
 
 def valid_input(st, boundary, return_type, time=None):
 
