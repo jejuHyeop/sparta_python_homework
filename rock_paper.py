@@ -1,7 +1,5 @@
-from modules.utils import valid_input, intro
+from modules.utils import valid_input, intro, paint_screen
 from random import randint as ri
-from time import sleep
-from os import system
 
 intro_ment = """안녕하세요. 가위~ 바위~ 보~ 게임입니다.
 5 초 안에 안내면 무조건 패!!
@@ -17,7 +15,7 @@ choices = ['가위','바위','보']
 judge_string = "1231"
 
 while True:
-    system("clear")
+    paint_screen()
     computer_input = ri(1,3)
     user_index = valid_input("가위(1) 바위(2) 보(3) > ", range(1,4), int, 5)
 
@@ -44,7 +42,7 @@ while True:
         print("\n\nTIME IS GOLD!!")
     
     input("\n\n[ENTER]")
-    system("clear")
+    paint_screen()
     
     retry_input = valid_input('한판더 하실건가요 y/n > ', ['y','n'], str).lower()
     if retry_input == 'n':

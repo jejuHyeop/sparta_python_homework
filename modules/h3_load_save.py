@@ -26,6 +26,5 @@ def save_posts(savedicts):
         csv_writer = csv.DictWriter(csvfile, fieldnames=['id','title','content','author'])
         csv_writer.writeheader()
         for sd in savedicts:
-            print(sd.id, sd.title, sd.content, sd.author)
             csv_writer.writerows([{'id':sd.id, 'title':sd.title, 'content':sd.content, 'author':sd.author}])
     

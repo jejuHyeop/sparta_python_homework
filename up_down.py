@@ -1,6 +1,5 @@
 from random import randint as ri
-from modules.utils import valid_input, intro
-from os import system
+from modules.utils import valid_input, intro, paint_screen
 from time import sleep
 
 input_time = 5
@@ -19,7 +18,7 @@ intro(intro_ment, 0.01, [4,5,7])
 
 
 while True:
-    system("clear")
+    paint_screen()
     level_ment = """=================================================
 1. EASY (한 자리수)
 2. NORMAL (두 자리수)
@@ -29,7 +28,7 @@ while True:
     level = valid_input(level_ment, ["1","2","3"], str)
     level = int(level)
     
-    system("clear")
+    paint_screen()
     try_time = 0
     msg = """
 {} 번만에 맞췄습니다.
@@ -57,7 +56,7 @@ while True:
                     print("UP!")
                     panalty_min = user_input + 1
                 else:
-                    system("clear")
+                    paint_screen()
                     print("CORRECT!")
                     print(msg.format(try_time, panalty, try_time - 2*panalty))
                     input("\n\nGAME CLEAR [ENTER]")
@@ -71,13 +70,13 @@ while True:
             print("시도회수가 1 증가합니다 ~")
             try_time += 1
             sleep(1.5)
-            system("clear")
+            paint_screen()
             continue
 
         input("\n\nTry Again [ENTER]")
-        system("clear")
+        paint_screen()
     
-    system("clear")
+    paint_screen()
     retry_input = valid_input('게임을 다시 시작하시겠습니까 y/n > ', ['y','n'], str).lower()
     if retry_input == 'n':
         break

@@ -1,10 +1,9 @@
-from modules.utils import valid_input
+from modules.utils import valid_input, paint_screen
 from modules.h3_login import login
 from modules.h3_crud import post_create, post_read, post_update, post_delete, post_save
 
 from colorama import Fore, Style, Back
 import colorama
-from os import system
 
 colorama.init()
 
@@ -40,7 +39,7 @@ if __name__ == "__main__":
     login_ment = ""
     login_object = None
     while True:
-        system("clear")
+        paint_screen()
         if login_object:
             print(Fore.BLUE + Back.CYAN + Style.BRIGHT + f"현재 {login_object} 님 로그인 중!" + Style.RESET_ALL)
             user_choice = valid_input(user_ment, ['1','2','3','4','5','6'], str)
@@ -48,7 +47,7 @@ if __name__ == "__main__":
             print(Fore.BLUE + Back.LIGHTYELLOW_EX + Style.BRIGHT + f"당신은 익명의 사용자입니다." + Style.RESET_ALL)
             user_choice = valid_input(anon_ment, ['1','2','3','4','5','6'], str)
         
-        system("clear")
+        paint_screen()
         if user_choice == '1':
             if login_object:
                 login_object = None

@@ -4,6 +4,7 @@ from time import sleep
 from os import system
 from colorama import Fore, Style
 import colorama
+from .run_os import get_os
 
 colorama.init()
 def intro(st, time, line=[]):
@@ -47,4 +48,10 @@ def valid_input(st, boundary, return_type, time=None):
             return user_input
         print("입력값이 유효하지 않습니다!!")
         input("\n\nRETRY [ENTER]")
+        system("clear")
+
+def paint_screen():
+    if get_os() == "windows":
+        system("cls")
+    else:
         system("clear")
