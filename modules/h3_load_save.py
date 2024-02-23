@@ -1,10 +1,10 @@
 import csv
-from classes import Post, Member
+from .h3_classes import Post, Member
 
 membersDict, postsDict = [], []
 # CSV 파일 열기
 def load_members():
-    members_file = "./members.csv"
+    members_file = "data/members.csv"
     with open(members_file, newline='') as csvfile:
         members = csv.DictReader(csvfile)
         for mem in members:
@@ -12,7 +12,7 @@ def load_members():
     return membersDict
     
 def load_posts():
-    posts_file = "./posts.csv"
+    posts_file = "data/posts.csv"
     with open(posts_file, newline='') as csvfile:
         posts = csv.DictReader(csvfile)
         for post in posts:
@@ -20,7 +20,7 @@ def load_posts():
     return postsDict
 
 def save_posts(savedicts):
-    posts_file = "./posts.csv"
+    posts_file = "data/posts.csv"
 
     with open(posts_file, 'w', newline='') as csvfile:
         csv_writer = csv.DictWriter(csvfile, fieldnames=['id','title','content','author'])

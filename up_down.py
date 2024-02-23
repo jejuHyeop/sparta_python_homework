@@ -1,5 +1,5 @@
 from random import randint as ri
-from utils import valid_input, intro
+from modules.utils import valid_input, intro
 from os import system
 from time import sleep
 

@@ -1,4 +1,4 @@
-from utils import valid_input, intro
+from modules.utils import valid_input, intro
 from random import randint as ri
 from time import sleep
 from os import system

@@ -1,3 +1,4 @@
+#python
 from inputimeout import inputimeout, TimeoutOccurred
 from time import sleep
 from os import system
