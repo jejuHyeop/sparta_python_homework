@@ -12,7 +12,12 @@ intro(intro_ment, 0.01, [2,4])
 # 승, 패, 드로
 score = [0, 0, 0]
 choices = ['가위','바위','보']
-judge_string = "1231"
+
+def judge(ch):
+    judge_string = "1231"
+    if ch in judge_string:
+        return False
+    return True
 
 while True:
     paint_screen()
@@ -29,14 +34,12 @@ while True:
             print("DRAW I:")
             score[2] += 1
         else:
-            # 패한 경우
-            if ch in judge_string:
-                print("YOU LOSE >:")
-                score[1] += 1
-            # 승한 경우
-            else:
+            if judge(ch):
                 print("YOU WIN :)") 
                 score[0] += 1
+            else:
+                print("YOU LOSE >:")
+                score[1] += 1
     else:
         print("YOU LOSE >:")
         print("\n\nTIME IS GOLD!!")
