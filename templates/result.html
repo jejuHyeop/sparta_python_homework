@@ -7,15 +7,15 @@
 
         <div id="result_box" class="row mt-5">
             <div class="col-lg-4 result">
-                USER
-                <p><img src="{{url_for('static', filename=data.userimage)}}"></p>
+                YOU
+                <p class="mt-4"><img src="{{url_for('static', filename=data.userimage)}}"></p>
             </div>
             <div id="images" class="col-lg-4">
                 <img src="{{ url_for('static', filename='wait.gif') }}">
             </div>
             <div class="col-lg-4 result">
                 COMPUTER
-                <img id="com_result"></img>
+                <p class="mt-4"><img id="com_result"></img></p>
             </div>
         </div>
     </div>
@@ -49,25 +49,21 @@
 
             }
         }, 800);
-
-      
-        
         
         function show_result(){
             box = document.getElementById('result_box')
             temp = `<div class="col-lg-4 result">
-                USER
-                <p><img src="{{url_for('static', filename=data.userimage)}}"></p>
+                YOU
+                <p class="mt-4"><img src="{{url_for('static', filename=data.userimage)}}"></p>
             </div>
             <div id="images" class="col-lg-4">
                 <img src="{{ url_for('static', filename=data.result_image) }}">
             </div>
             <div class="col-lg-4 result">
                 COMPUTER
-                <p><img src="{{url_for('static', filename=data.comimage)}}"></p>
+                <p class="mt-4"><img src="{{url_for('static', filename=data.comimage)}}"></p>
             </div>`
             box.innerHTML = temp;
-
         }
     </script>
 
