@@ -8,7 +8,7 @@ def load_members():
     with open(members_file, newline='') as csvfile:
         members = csv.DictReader(csvfile)
         for mem in members:
-            membersDict.append(Member(mem))
+            membersDict.append(Member(**mem))
     return membersDict
     
 def load_posts():
@@ -16,7 +16,7 @@ def load_posts():
     with open(posts_file, newline='') as csvfile:
         posts = csv.DictReader(csvfile)
         for post in posts:
-            postsDict.append(Post(post))
+            postsDict.append(Post(**post))
     return postsDict
 
 def save_posts(savedicts):
@@ -27,4 +27,14 @@ def save_posts(savedicts):
         csv_writer.writeheader()
         for sd in savedicts:
             csv_writer.writerows([{'id':sd.id, 'title':sd.title, 'content':sd.content, 'author':sd.author}])
+
+
+def save_mems(savemems):
+    posts_file = "data/members.csv"
+
+    with open(posts_file, 'w', newline='') as csvfile:
+        csv_writer = csv.DictWriter(csvfile, fieldnames=['name','username','password'])
+        csv_writer.writeheader()
+        for sm in savemems:
+            csv_writer.writerows([{'name':sm.name, 'username':sm.username, 'password':sm.password}])
     

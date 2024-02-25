@@ -21,7 +21,7 @@ def post_create(login_object):
     print("="*50)
     title = input("글 제목을 입력해주세요 : ")
     content = input("글 내용을 입력해주세요 : ")
-    postsDict.append( Post({"title":title, "content":content, "author":login_object.username}) )
+    postsDict.append( Post(title=title, content=content, author=login_object.username) )
     for num, i in enumerate(".\n.\n.\n.\n게시글이 등록되었습니다!!", 1):
         print(i, end="")
         sleep(0.5 / num)
@@ -31,13 +31,52 @@ def post_read():
         for p in get_posts():
             print("="*50)
             print(f"글 제목 {p.title}")
-            print(Back.LIGHTBLACK_EX + Style.DIM + Fore.WHITE + f"작성자 {p.author}" + Style.RESET_ALL)
+            print(Fore.BLUE + Back.CYAN + Style.BRIGHT + f"작성자 {p.author}" + Style.RESET_ALL)
             print("="*50)
             print(p.content)
             print()
             print(f"post id {p.id}")
             print()
             print()
+
+def find_index(st, keyword):
+    length = len(keyword)
+    indexs = []
+    ind = 0
+    while st.find(keyword, ind) != -1:
+        ind = st.find(keyword, ind)
+        indexs.append(ind)
+        ind += length
+    return indexs
+
+def post_find():
+    if get_posts():
+        keyword = input("검색할 키워드를 입력해주세요 : ")
+        for p in get_posts():
+            if keyword in p.content:
+                print("="*50)
+                print(f"<제목> {p.title}")
+                print(Fore.BLUE + Back.CYAN + Style.BRIGHT + f"작성자 {p.author}" + Style.RESET_ALL)
+                print("="*50)
+                indexs = find_index(p.content, keyword)
+                keyword_length = len(keyword)
+                cnt = 0
+                for num, ch in enumerate(p.content,0):
+                    if num in indexs:
+                        cnt = 1
+                        print(Fore.RED + Back.LIGHTYELLOW_EX, end="")
+                    elif cnt >= 1:
+                        cnt += 1
+
+                    print(ch, end="")
+                    if cnt == keyword_length:
+                        print(Style.RESET_ALL, end="")
+                        cnt = 0
+                print()
+                print()
+                print(f"post id {p.id}")
+                print()
+                print()
 
 @access_process
 def post_update(login_object):
@@ -46,7 +85,7 @@ def post_update(login_object):
         print(f"{login_object} 님! 수정할 post id 값을 입력해주세요")
         print("="*50)
         try:
-            postid = int(input("POST ID 입력 > "))
+            postid = int(input("수정할 post id 값을 입력해주세요 > "))
             p = get_post(postid)
             if p:
                 if p.author == login_object.username:
@@ -57,8 +96,8 @@ def post_update(login_object):
                     print(f"글 제목 : {p.content}")
                     print()
                     print()
-                    mod_title = input(f"수정할 제목을 입력하세요 : ")
-                    mod_content = input(f"수정할 내용을 입력하세요 : ")
+                    mod_title = input(f"수정할 제목을 입력하세요 > ")
+                    mod_content = input(f"수정할 내용을 입력하세요 > ")
                     p.title, p.content = mod_title, mod_content
                 else:
                     print("수정 권한이 없습니다.")
@@ -69,7 +108,7 @@ def post_update(login_object):
 def post_delete(login_object):
     if get_posts():
         try:
-            postid = int(input("수정할 post id 값을 입력해주세요 : "))
+            postid = int(input("삭제할 post id 값을 입력해주세요 > "))
             p = get_post(postid)
             if p:
                 if p.author == login_object.username:
@@ -79,6 +118,11 @@ def post_delete(login_object):
                     print("삭제 권한이 없습니다.")
         except ValueError:
             print("postid 는 정수입니다!")
+
+def author_find(username):
+    for p in postsDict:
+        if p.author == username:
+            print(f"◎ {p.title}")
         
 
 
