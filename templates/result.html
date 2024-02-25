@@ -1,0 +1,74 @@
+{% extends 'index.html' %}
+{% block content %}
+    <h1 class="subject" id="result_text">
+        ROCK
+    </h1>
+
+
+        <div id="result_box" class="row mt-5">
+            <div class="col-lg-4 result">
+                USER
+                <p><img src="{{url_for('static', filename=data.userimage)}}"></p>
+            </div>
+            <div id="images" class="col-lg-4">
+                <img src="{{ url_for('static', filename='wait.gif') }}">
+            </div>
+            <div class="col-lg-4 result">
+                COMPUTER
+                <img id="com_result"></img>
+            </div>
+        </div>
+    </div>
+    <div class="text-center mt-5">
+        <a href="{{ url_for('home')}}" id="backbtn" class="btn btn-outline-warning disabled">BACK</a>
+    </div>
+
+    <script>
+    
+        var choices = ['ROCK','SCISSORS', 'PAPER','YOU {{data.result}}!'];
+        var index1 = 0;
+        var images = ['zero.png','two.png','five.png']
+        var index2 = 0;
+        
+        var interval1 = setInterval(function() {
+            temp = "/static/"+ images[index1%images.length] 
+            document.getElementById('com_result').setAttribute('src', temp)
+            index1++;
+        }, 100);
+
+        var interval2 = setInterval(function() {
+            document.getElementById('result_text').textContent = choices[index2];
+            index2++;
+            if (index2 == choices.length) {
+                clearInterval(interval1);
+                clearInterval(interval2);
+                show_result();
+                backbtn = document.getElementById('backbtn')
+                backbtn.removeAttribute('class')
+                backbtn.setAttribute('class','btn-warning btn');
+
+            }
+        }, 800);
+
+      
+        
+        
+        function show_result(){
+            box = document.getElementById('result_box')
+            temp = `<div class="col-lg-4 result">
+                USER
+                <p><img src="{{url_for('static', filename=data.userimage)}}"></p>
+            </div>
+            <div id="images" class="col-lg-4">
+                <img src="{{ url_for('static', filename=data.result_image) }}">
+            </div>
+            <div class="col-lg-4 result">
+                COMPUTER
+                <p><img src="{{url_for('static', filename=data.comimage)}}"></p>
+            </div>`
+            box.innerHTML = temp;
+
+        }
+    </script>
+
+{% endblock %}

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, url_for
 from random import randint as ri
 from database import db, GameHistory
 import os
@@ -41,10 +41,18 @@ def logic():
         result = "WIN"
     else:
         result = "LOSE"
-    gh = GameHistory(user_choice=rsp_list[int(user_input)-1], computer_choice=rsp_list[computer_input-1], result=result)
+    userimage = rsp_list[int(user_input)-1]
+    comimage = rsp_list[computer_input-1]
+    gh = GameHistory(user_choice=userimage, computer_choice=comimage, result=result)
     db.session.add(gh)
     db.session.commit()
-    return redirect(url_for('home'))
+    context = {
+        "userimage": userimage,
+        "comimage": comimage,
+        "result" : result,
+        "result_image" : result.lower() + ".gif"
+    }
+    return render_template('result.html', data=context)
 
 
 if __name__ == '__main__':
