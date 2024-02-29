@@ -1,3 +1,6 @@
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+
 from modules.utils import valid_input, paint_screen
 from modules.h3_member_module import login, member_create, member_read, member_save
 from modules.h3_post_module import post_create, post_read, post_update, post_delete, post_save, post_find
